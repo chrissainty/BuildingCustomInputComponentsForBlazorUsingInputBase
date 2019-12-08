@@ -1,0 +1,40 @@
+﻿@page "/"
+
+<h1>Custom Input Select Component</h1>
+
+<p>
+    <EditForm Model="RecordForm" OnValidSubmit="HandleValidSubmit">
+        <CustomInputSelect @bind-Value="RecordForm.SelectedPerson"
+                           ValidationFor="@(() => RecordForm.SelectedPerson)"
+                           Label="Select Person">
+            @foreach (var person in People)
+            {
+                <option value="@person.Id">@person.Name</option>
+            }
+        </CustomInputSelect>
+    </EditForm>
+</p>
+
+<hr />
+
+<p>Selected Person: @RecordForm?.SelectedPerson</p>
+
+@code {
+
+    public Record RecordForm { get; set; } = new Record();
+    public List<Person> People { get; set; } = new List<Person>();
+
+    protected override void OnInitialized()
+    {
+        People.Add(new Person { Id = Guid.NewGuid(), Name = "John" });
+        People.Add(new Person { Id = Guid.NewGuid(), Name = "Steve" });
+        People.Add(new Person { Id = Guid.NewGuid(), Name = "Dave" });
+        People.Add(new Person { Id = Guid.NewGuid(), Name = "Alan" });
+    }
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("Valid Submit");
+    }
+
+}
