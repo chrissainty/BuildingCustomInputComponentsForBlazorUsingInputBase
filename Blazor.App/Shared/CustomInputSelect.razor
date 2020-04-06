@@ -11,7 +11,7 @@
     }
 
     <select class="form-control @CssClass" id="@Id" @bind="CurrentValueAsString">
-        @if (ShowDefaultOpton)
+        @if (ShowDefaultOption)
         {
             <option value="0" hidden disabled>- Please Select -</option>
         }
@@ -29,7 +29,7 @@
     [Parameter] public string Label { get; set; }
     [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public bool ShowDefaultOpton { get; set; } = true;
+    [Parameter] public bool ShowDefaultOption { get; set; } = true;
 
     protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
     {
