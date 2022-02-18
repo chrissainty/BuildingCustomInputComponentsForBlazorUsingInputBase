@@ -1,0 +1,27 @@
+@using System.Linq.Expressions
+@inherits InputBase<string>
+
+<div class="form-control-wrapper">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label class="form-control-label" for="@Id">@Label</label>
+    }
+    <input class="form-control @CssClass" id="@Id" @bind="@CurrentValue" />
+    <div class="form-control-validation">
+        <ValidationMessage For="@ValidationFor" />
+    </div>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired] public Expression<Func<string>> ValidationFor { get; set; } = default!;
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string? Label { get; set; }
+
+    protected override bool TryParseValueFromString(string? value, out string result, out string validationErrorMessage)
+    {
+        result = value;
+        validationErrorMessage = null;
+        return true;
+    }
+}
